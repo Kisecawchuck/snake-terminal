@@ -1,14 +1,19 @@
-main : egg.o list.o main.o
-	cc egg.o list.o main.o -o main -Wall
+CFLAGS	:= -Wall -Wextra -Wpedantic
+
+main : egg.o player.o renders.o main.o
+	cc $(CFLAGS) egg.o player.o renders.o main.o -o main
 
 main.o : main.c
-	cc -c main.c -o main.o
+	cc $(CFLAGS) -c main.c -o main.o
 
 egg.o : egg.c
-	cc -c egg.c -o egg.o
+	cc $(CFLAGS) -c egg.c -o egg.o
 
-list.o : list.c
-	cc -c list.c -o list.o
+player.o : player.c
+	cc $(CFLAGS) -c player.c -o player.o
+
+renders.o : renders.c
+	cc $(CFLAGS) -c renders.c -o renders.o
 
 clean :
 	rm -rf *.o main
