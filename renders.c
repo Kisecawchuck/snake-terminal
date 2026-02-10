@@ -31,6 +31,8 @@ void render_nodes(char board[], node_t *player, int height, int width) {
                     tmp->next->x = get_node_x(tmp) + 1;
                     tmp->next->y = get_node_y(tmp);
                     break;
+                default:
+                    break;
             }
         }
 

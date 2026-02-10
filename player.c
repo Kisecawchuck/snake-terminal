@@ -85,6 +85,8 @@ void add_node(node_t *player) {
                     node->y = get_node_y(tmp);
                     node->dir = LEFT;
                     break;
+                default:
+                    break;
             }
         }
         tmp = tmp->next;

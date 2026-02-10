@@ -17,7 +17,7 @@
 
 void term_mode(int mode);
 void init_board(char board[]);
-void update(int score, char board[], node_t *player, egg_t *egg);
+void update(char board[], node_t *player, egg_t *egg);
 void clear();
 void handle_pause();
 int handle_input(char c, node_t *player);
@@ -25,16 +25,15 @@ int gen_allowed_x(node_t *player);
 int gen_allowed_y(node_t *player);
 void debug_mode(int mode, node_t *player);
 
+int score = 0;
 char input;
 char prev_input;
 bool should_close = false;
 
 int main() {
-    char proceed;
     srand(time(NULL));
 
     char board[WIDTH * HEIGHT];
-    int score = 0;
     node_t *player = create_player(9, HEIGHT / 2);
     egg_t *egg = create_egg(gen_allowed_x(player), gen_allowed_y(player));
 
@@ -47,7 +46,7 @@ int main() {
         else {
             clear();
             init_board(board);
-            update(score, board, player, egg);
+            update(board, player, egg);
             fcntl(0, F_SETFL, fcntl(0, F_GETFL) | O_NONBLOCK);
             usleep(1200 * 1200/FPS);
         }
@@ -85,7 +84,7 @@ void init_board(char board[]) {
     memset(board, '.', WIDTH * HEIGHT);
 }
 
-void update(int score, char board[], node_t *player, egg_t *egg) {
+void update(char board[], node_t *player, egg_t *egg) {
     if (check_collision(player, HEIGHT, WIDTH) != 0) {
         should_close = true;
         return;
