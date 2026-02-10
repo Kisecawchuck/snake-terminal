@@ -1,15 +1,20 @@
-<h1 align="center">
-	<img alt="snake game" title="snake game" src="./gif.gif" />
-</h1>
+# Snake Game
 
 (linux only)
 
-commands:<br>
-<kbd>q</kbd> (quit), <kbd>p</kbd> (pause)<br>
+![til](./gif.gif)
 
-movement:<br>
-<kbd>w</kbd> (up), <kbd>s</kbd> (down), <kbd>a</kbd> (left), <kbd>d</kbd> (right)
+## Building
+After cloning the repository, run:
+```bash
+cd snake-terminal
+make
+```
+This will build snake terminal and create the binary at `./main`
 
-<h1 align="center">
-    <img alt="gameplay" title="gameplay" src="./gif.gif" />
-</h1>
+## How to Play
+### Commands
+`q` (quit), `p` (pause)
+
+### Movement
+`w` (up), `s` (down), `a` (left), `d` (right)
