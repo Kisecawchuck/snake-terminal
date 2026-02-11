@@ -35,6 +35,7 @@ int main() {
 
     char board[WIDTH * HEIGHT];
     node_t *player = create_player(9, HEIGHT / 2);
+    add_node(player);
     egg_t *egg = create_egg(gen_allowed_x(player), gen_allowed_y(player));
 
     term_mode(1);
@@ -100,14 +101,14 @@ void update(char board[], node_t *player, egg_t *egg) {
     render_score(score);
     debug_mode(1, player);
 
-    if (score == 25) {
-        should_close = true;
-        return;
-    }
 
     if (player->x == egg->x && player->y == egg->y) {
-        add_node(player);
         score++;
+        if (score >= MAX_SCORE) {
+            should_close = true;
+            return;
+        }
+        add_node(player);
         egg->x = gen_allowed_x(player);
         egg->y = gen_allowed_y(player);
     }
