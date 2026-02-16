@@ -9,24 +9,30 @@ typedef enum {
     INVALID,
 } DIRECTION;
 
-typedef struct node{
+typedef struct node {
   int x;
   int y;
   DIRECTION dir;
   struct node *next;
 } node_t;
 
-node_t *create_player(int x, int y);
-void insert_at_end(node_t *head, node_t *new_node);
-int get_node_x(node_t *node);
-int get_node_y(node_t *node);
-int get_node_dir(node_t *node);
+typedef struct _player {
+    node_t *head;
+    node_t *tail;
+    int size;
+    int score;
+} player_t;
+
+player_t *create_player(int x, int y);
+DIRECTION get_dir(player_t *player);
+int get_x(player_t *player);
+int get_y(player_t *player);
 void node_up(node_t *node);
 void node_down(node_t *node);
 void node_right(node_t *node);
 void node_left(node_t *node);
-void pitch_node(node_t *player);
-void add_node(node_t *player);
-int check_collision(node_t *player, int height, int width);
+void pitch_player(player_t *player);
+void add_node(player_t *player);
+int check_collision(player_t *player, int height, int width);
 
 #endif

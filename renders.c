@@ -9,48 +9,31 @@ void render_board(char board[], int height, int width) {
     }
 }
 
-void render_nodes(char board[], node_t *player, int height, int width) {
-    node_t *tmp = player;
+void render_nodes(char board[], player_t *player, int height, int width) {
+    node_t *tmp = player->head;
 
-    while (tmp != NULL) {
-        if (!(tmp->next == NULL)) {
-            switch (tmp->dir) {
-                case UP:
-                    tmp->next->x = get_node_x(tmp);
-                    tmp->next->y = get_node_y(tmp) + 1;
-                    break;
-                case RIGHT:
-                    tmp->next->x = get_node_x(tmp) - 1;
-                    tmp->next->y = get_node_y(tmp);
-                    break;
-                case DOWN:
-                    tmp->next->x = get_node_x(tmp);
-                    tmp->next->y = get_node_y(tmp) - 1;
-                    break;
-                case LEFT:
-                    tmp->next->x = get_node_x(tmp) + 1;
-                    tmp->next->y = get_node_y(tmp);
-                    break;
-                default:
-                    break;
-            }
+    int dirX[] = {0, -1, 0, 1, 0};
+    int dirY[] = {1, 0, -1, 0, 0};
+    while (tmp) {
+        if (tmp->next) {
+            tmp->next->x = tmp->x + dirX[tmp->dir];
+            tmp->next->y = tmp->y + dirY[tmp->dir];
         }
 
-        if (tmp != player) {
-            node_t *aux = player;
-            while (aux != NULL) {
-                if (aux->next == tmp) {
-                    if (aux->y < tmp->y) tmp->dir = UP;
-                    if (aux->x > tmp->x) tmp->dir = RIGHT;
-                    if (aux->y > tmp->y) tmp->dir = DOWN;
-                    if (aux->x < tmp->x) tmp->dir = LEFT;
-                }
-                aux = aux->next;
-            }
-        }
         if (check_collision(player, height, width) != 0) return;
         board[(tmp->y * width) + tmp->x] = '#';
         tmp = tmp->next;
+    }
+
+    node_t *a = player->head;
+    node_t *b = player->head->next;
+    while (a && b) {
+        if (a->y < b->y) b->dir = UP;
+        if (a->x > b->x) b->dir = RIGHT;
+        if (a->y > b->y) b->dir = DOWN;
+        if (a->x < b->x) b->dir = LEFT;
+        a = b;
+        b = b->next;
     }
 }
 
@@ -71,7 +54,7 @@ void render_win() {
 }
 
 void render_help() {
-    fprintf(stdout, "commands:\nq = quit\np = pause\n\nmoves:\nw = up\na = left\ns = down\nd = right\n\ncollect 25 eggs to win\n\npress any key to start...\n");
+    fprintf(stdout, "commands:\nq = quit\np = pause\n\nmoves:\nw = up\na = left\ns = down\nd = right\n\ncollect 100 eggs to win\n\npress any key to start...\n");
 }
 
 void render_pause(int pause_sec) {
