@@ -1,7 +1,7 @@
 CC		:= gcc
 CFLAGS	:= -Wall -Wextra -Wpedantic
 
-TARGET	:= main
+TARGET	:= snake-terminal
 SRCS	:= $(wildcard *.c)
 OBJS	:= $(SRCS:.c=.o)
 
