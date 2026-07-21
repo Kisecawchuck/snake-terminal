@@ -10,7 +10,7 @@ After cloning the repository, run:
 cd snake-terminal
 make
 ```
-This will build snake terminal and create the binary at `./main`
+This will build snake terminal and create the binary at `./snake-terminal`
 
 ## How to Play
 ### Commands
